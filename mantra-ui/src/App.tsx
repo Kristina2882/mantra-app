@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -28,17 +28,32 @@ function App() {
       "catname": "Name mantras",
     },
   ];
+  const [mantraName, setMantraName] = useState("");
+  const [mantraContent, setMantraContent] = useState("");
+  const [mantraCat, setMantraCat] = useState("");
+
+  const handleAddMantra = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("Name:", mantraName);
+    console.log("Category:", mantraCat);
+    console.log(mantraContent);
+  }
+
   return (
     <React.Fragment>
     <div className="app-container">
-      <form className='add-mantra-form'>
+      <form className='add-mantra-form' onSubmit={handleAddMantra}>
         <input required
+        value={mantraName}
+        onChange={(event) => setMantraName(event.target.value)}
         name='mantra-name'
         type='text'
         placeholder='Mantra name'
         />
         <select required
-        name='mantra-cat'>
+        name='mantra-cat'
+        value={mantraCat}
+        onChange={(event) => setMantraCat(event.target.value)}>
         {categories.map((category) => (
           <option value={category.id}>
           {category.catname}
@@ -48,6 +63,8 @@ function App() {
       
         <textarea required
         name='mantra-content'
+        value={mantraContent}
+        onChange={(event) => setMantraContent(event.target.value)}
         rows={10}
         placeholder='Mantra'
         />
