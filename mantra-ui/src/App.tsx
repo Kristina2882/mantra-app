@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <React.Fragment>
-    <div className="AppContainer">
+    <div className="app-container">
       <form className='add-mantra-form'>
         <input required
         name='mantra-name'
@@ -21,9 +21,20 @@ function App() {
         type='textarea'
         placeholder='Mantra'
         />
-        <button type='submit' className='add-btn'>Add mantra</button>
+        <button type='submit'>Add mantra</button>
       </form>
+    <div className='categories' >
+    <div className='category'>
+      <h2>Category name</h2>
+    </div>
+    </div>
 
+    <div className='random'>
+    <button className='random-btn'>Show random!</button>
+    <div className='show-random' >
+
+    </div>
+    </div>
     </div>
     </React.Fragment>
   );
