@@ -2,6 +2,32 @@ import React from 'react';
 import './App.css';
 
 function App() {
+  const categories = [
+    {
+      "id": 1,
+      "catname": "About Myzdrii",
+    },
+    {
+      "id": 2,
+      "catname": "About other powers",
+    },
+    {
+      "id": 3,
+      "catname": "Help at work",
+    },
+    {
+      "id": 4,
+      "catname": "Help in sex",
+    },
+    {
+      "id": 5,
+      "catname": "About dendriy and nikisha",
+    },
+    {
+      "id": 6,
+      "catname": "Name mantras",
+    },
+  ];
   return (
     <React.Fragment>
     <div className="app-container">
@@ -11,22 +37,29 @@ function App() {
         type='text'
         placeholder='Mantra name'
         />
-        <input required
-        name='mantra-cat'
-        type='text'
-        placeholder='Mantra category'
-        />
-        <input required
+        <select required
+        name='mantra-cat'>
+        {categories.map((category) => (
+          <option value={category.id}>
+          {category.catname}
+          </option>
+        ))}
+        </select>
+      
+        <textarea required
         name='mantra-content'
-        type='textarea'
+        rows={10}
         placeholder='Mantra'
         />
         <button type='submit'>Add mantra</button>
       </form>
-    <div className='categories' >
-    <div className='category'>
-      <h2>Category name</h2>
-    </div>
+    <div className='categories'>
+      {categories.map((category) => (
+       <div className='category'>
+       <h2>{category.catname}</h2>
+     </div>
+      ))}
+   
     </div>
 
     <div className='random'>

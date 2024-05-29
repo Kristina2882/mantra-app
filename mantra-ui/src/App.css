@@ -45,7 +45,9 @@ h2 {
 }
 
 .add-mantra-form textarea,
-.add-mantra-form input {
+.add-mantra-form input,
+.add-mantra-form select,
+.add-mantra-form select option {
   border-radius: 5px;
   border: 1px solid #973f82;
   background-color: #e6bbe1;
