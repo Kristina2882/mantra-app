@@ -15,7 +15,8 @@ body {
   }
 }
 
-.categories {
+.categories,
+.mantras-for-cat {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: minmax(250px, auto);
@@ -23,7 +24,7 @@ body {
 }
 
 .category,
-.mantras-for-cat {
+.mantra-item {
   display: flex;
   flex-direction: column;
   border: 1px solid #973f82;

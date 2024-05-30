@@ -45,6 +45,7 @@ function App() {
   const [mantraCat, setMantraCat] = useState("");
   const [selectedCat, setSelectedCat] = useState<Category | null>(null);
   const [mantras, setMantras] = useState<Mantra[]>([]);
+  const [selectedMantra, setSelectedMantra] = useState<Mantra | null>(null);
 
   const handleAddMantra = (event: React.FormEvent) => {
     event.preventDefault();
@@ -71,16 +72,38 @@ function App() {
 
   const handleBackClick = () => {
     setSelectedCat(null);
+    setSelectedMantra(null);
+  }
+  
+  const showMantra = (mantraId: Number) => {
+    const selectedMantra = mantras.filter(mantra => mantra.id === mantraId)[0];
+    setSelectedMantra(selectedMantra);
   }
 
-  if (selectedCat) {
+  if (selectedMantra) {
+    return (
+      <React.Fragment>
+      <div className='mantra-item'>
+      <h3>{selectedMantra.mantraName}</h3>
+      <h4>{selectedMantra.mantraCat}</h4>
+      <h3>{selectedMantra.mantraContent}</h3>
+      <button className="back-btn" onClick={handleBackClick}>Back</button>
+      </div> 
+      </React.Fragment>
+    );
+  }
+
+  else if (selectedCat) {
     const matrasForCat = mantras.filter(mantra => mantra.mantraCat === selectedCat.id);
+
     return (
      <div className='mantras-for-cat'>
       <h2>{selectedCat.catname}</h2>
       {
         matrasForCat.map((mantra) => (
+          <div onClick={() => showMantra(mantra.id)}>
           <h3>{mantra.mantraName}</h3>
+          </div>
         ))
       }
       <button className="back-btn" onClick={handleBackClick}>Back</button>
