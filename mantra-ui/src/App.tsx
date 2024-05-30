@@ -1,6 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import './App.css';
 
+type Category = {
+  id: number;
+  catname: string;
+}
+
 function App() {
   const categories = [
     {
@@ -31,13 +36,32 @@ function App() {
   const [mantraName, setMantraName] = useState("");
   const [mantraContent, setMantraContent] = useState("");
   const [mantraCat, setMantraCat] = useState("");
+  const [selectedCat, setSelectedCat] = useState<Category | null>(null);
 
   const handleAddMantra = (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Name:", mantraName);
     console.log("Category:", mantraCat);
     console.log(mantraContent);
+    setMantraName("");
+    setMantraContent("");
   }
+
+  const handleCatSelection = (catId:Number) => {
+     const selectedCategory = categories.filter(cat => cat.id === catId)[0];
+      console.log("Selected category:", selectedCategory.catname);
+     setSelectedCat(selectedCategory);
+  }
+
+  if (selectedCat) {
+    return (
+     <div className='mantras-for-cat'>
+      <h2>{selectedCat.catname}</h2>
+     </div>
+    );
+  }
+  
+  else
 
   return (
     <React.Fragment>
@@ -72,7 +96,7 @@ function App() {
       </form>
     <div className='categories'>
       {categories.map((category) => (
-       <div className='category'>
+       <div className='category' onClick={() => handleCatSelection(category.id)}>
        <h2>{category.catname}</h2>
      </div>
       ))}
