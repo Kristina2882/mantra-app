@@ -22,7 +22,8 @@ body {
   gap: 20px;
 }
 
-.category {
+.category,
+.mantras-for-cat {
   display: flex;
   flex-direction: column;
   border: 1px solid #973f82;
@@ -56,7 +57,8 @@ h2 {
 }
 
 .add-mantra-form button,
-.random-btn {
+.random-btn,
+.back-btn {
   border-radius: 5px;
   background-color: #6a315c;
   border: none;
@@ -66,7 +68,8 @@ h2 {
 }
 
 .add-mantra-form button:hover,
-.random-btn:hover {
+.random-btn:hover,
+.back-btn {
   background-color: #973f82;
   cursor: pointer;
 }

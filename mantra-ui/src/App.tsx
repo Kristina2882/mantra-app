@@ -6,6 +6,13 @@ type Category = {
   catname: string;
 }
 
+type Mantra = {
+  id: number;
+  mantraName: string;
+  mantraCat: number;
+  mantraContent: string;
+}
+
 function App() {
   const categories = [
     {
@@ -37,12 +44,21 @@ function App() {
   const [mantraContent, setMantraContent] = useState("");
   const [mantraCat, setMantraCat] = useState("");
   const [selectedCat, setSelectedCat] = useState<Category | null>(null);
+  const [mantras, setMantras] = useState<Mantra[]>([]);
 
   const handleAddMantra = (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Name:", mantraName);
     console.log("Category:", mantraCat);
     console.log(mantraContent);
+    const newMantra = {
+      id: mantras.length + 1,
+      mantraName: mantraName,
+      mantraContent: mantraContent,
+      mantraCat: parseInt(mantraCat)
+    }
+    mantras.push(newMantra);
+    setMantras(mantras);
     setMantraName("");
     setMantraContent("");
   }
@@ -53,14 +69,25 @@ function App() {
      setSelectedCat(selectedCategory);
   }
 
+  const handleBackClick = () => {
+    setSelectedCat(null);
+  }
+
   if (selectedCat) {
+    const matrasForCat = mantras.filter(mantra => mantra.mantraCat === selectedCat.id);
     return (
      <div className='mantras-for-cat'>
       <h2>{selectedCat.catname}</h2>
+      {
+        matrasForCat.map((mantra) => (
+          <h3>{mantra.mantraName}</h3>
+        ))
+      }
+      <button className="back-btn" onClick={handleBackClick}>Back</button>
      </div>
     );
   }
-  
+
   else
 
   return (
