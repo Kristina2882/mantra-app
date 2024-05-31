@@ -64,7 +64,7 @@ function App() {
     setMantraContent("");
   }
 
-  const handleCatSelection = (catId:Number) => {
+  const handleCatSelection = (catId:number) => {
      const selectedCategory = categories.filter(cat => cat.id === catId)[0];
       console.log("Selected category:", selectedCategory.catname);
      setSelectedCat(selectedCategory);
@@ -75,9 +75,20 @@ function App() {
     setSelectedMantra(null);
   }
   
-  const showMantra = (mantraId: Number) => {
+  const showMantra = (mantraId: number) => {
     const selectedMantra = mantras.filter(mantra => mantra.id === mantraId)[0];
     setSelectedMantra(selectedMantra);
+  }
+
+  function getRandomIntInclusive(min: number, max: number) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); 
+  }
+
+  const handleRandom = () => {
+    const randomId = getRandomIntInclusive(1, mantras.length+1);
+    showMantra(randomId);
   }
 
   if (selectedMantra) {
@@ -154,7 +165,7 @@ function App() {
     </div>
 
     <div className='random'>
-    <button className='random-btn'>Show random!</button>
+    <button className='random-btn' onClick={handleRandom}>Show random!</button>
     <div className='show-random' >
 
     </div>
