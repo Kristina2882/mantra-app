@@ -94,12 +94,14 @@ function App() {
   if (selectedMantra) {
     return (
       <React.Fragment>
+        <div className="app-container">
       <div className='mantra-item'>
       <h3>{selectedMantra.mantraName}</h3>
       <h4>{selectedMantra.mantraCat}</h4>
       <h3>{selectedMantra.mantraContent}</h3>
       <button className="back-btn" onClick={handleBackClick}>Back</button>
       </div> 
+      </div>
       </React.Fragment>
     );
   }
@@ -108,17 +110,23 @@ function App() {
     const matrasForCat = mantras.filter(mantra => mantra.mantraCat === selectedCat.id);
 
     return (
-     <div className='mantras-for-cat'>
+      <React.Fragment>
+    
       <h2>{selectedCat.catname}</h2>
+      <div className="app-container">
+      <div className='mantras-for-cat'>
       {
         matrasForCat.map((mantra) => (
-          <div onClick={() => showMantra(mantra.id)}>
+          <div  className='mantra-item' onClick={() => showMantra(mantra.id)}>
           <h3>{mantra.mantraName}</h3>
           </div>
         ))
       }
+      </div>
+      </div>
       <button className="back-btn" onClick={handleBackClick}>Back</button>
-     </div>
+     
+     </React.Fragment>
     );
   }
 
