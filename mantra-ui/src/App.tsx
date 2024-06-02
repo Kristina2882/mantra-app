@@ -111,21 +111,23 @@ function App() {
 
     return (
       <React.Fragment>
-    
+      <div className='cat-name'>
       <h2>{selectedCat.catname}</h2>
+      </div>
       <div className="app-container">
       <div className='mantras-for-cat'>
       {
         matrasForCat.map((mantra) => (
-          <div  className='mantra-item' onClick={() => showMantra(mantra.id)}>
-          <h3>{mantra.mantraName}</h3>
+          <div  className='cat-mantra-item' onClick={() => showMantra(mantra.id)}>
+          <h2>{mantra.mantraName}</h2>
           </div>
         ))
       }
+      <div className='back-btn-div'>
+       <button className="back-btn" onClick={handleBackClick}>Back</button>
+       </div>
       </div>
       </div>
-      <button className="back-btn" onClick={handleBackClick}>Back</button>
-     
      </React.Fragment>
     );
   }
