@@ -49,9 +49,6 @@ function App() {
 
   const handleAddMantra = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Name:", mantraName);
-    console.log("Category:", mantraCat);
-    console.log(mantraContent);
     const newMantra = {
       id: mantras.length + 1,
       mantraName: mantraName,
@@ -70,7 +67,8 @@ function App() {
      setSelectedCat(selectedCategory);
   }
 
-  const handleBackClick = () => {
+  const handleBackClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setSelectedCat(null);
     setSelectedMantra(null);
   }
@@ -91,16 +89,28 @@ function App() {
     showMantra(randomId);
   }
 
+  const handleMantraClick =(mantra: Mantra) => {
+    setSelectedMantra(mantra);
+    console.log(mantra);
+    setMantraName(mantra.mantraName);
+    setMantraCat(mantra.mantraCat.toString());
+    setMantraContent(mantra.mantraContent);
+
+  }
+
   if (selectedMantra) {
     return (
       <React.Fragment>
-        <div className="app-container">
-      <div className='mantra-item'>
+      <div className="app-container">
+      <div className='mantra-item' onClick={() => {handleMantraClick(selectedMantra)}}>
       <h3>{selectedMantra.mantraName}</h3>
       <h4>{selectedMantra.mantraCat}</h4>
       <h3>{selectedMantra.mantraContent}</h3>
+      <div className='back-btn-div'>
       <button className="back-btn" onClick={handleBackClick}>Back</button>
+      </div>
       </div> 
+    
       </div>
       </React.Fragment>
     );
