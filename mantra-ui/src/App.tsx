@@ -46,6 +46,7 @@ function App() {
   const [selectedCat, setSelectedCat] = useState<Category | null>(null);
   const [mantras, setMantras] = useState<Mantra[]>([]);
   const [selectedMantra, setSelectedMantra] = useState<Mantra | null>(null);
+  const [updateMantra, setUpdateMantra] = useState(false);
 
   const handleAddMantra = (event: React.FormEvent) => {
     event.preventDefault();
@@ -89,16 +90,75 @@ function App() {
     showMantra(randomId);
   }
 
-  const handleMantraClick =(mantra: Mantra) => {
-    setSelectedMantra(mantra);
-    console.log(mantra);
+  const handleMantraClick = (mantra: Mantra) => {
     setMantraName(mantra.mantraName);
     setMantraCat(mantra.mantraCat.toString());
     setMantraContent(mantra.mantraContent);
-
+    setUpdateMantra(true);
   }
 
-  if (selectedMantra) {
+  const handleMantraUpdate = (event:React.FormEvent) => {
+    event.preventDefault();
+
+    if (!selectedMantra) {
+      return;
+    }
+
+    const updatedMantra:Mantra = {
+      id: selectedMantra.id,
+      mantraName: mantraName,
+      mantraCat: parseInt(mantraCat),
+      mantraContent: mantraContent
+    }
+
+    const updatedMantrasList = mantras.map((mantra) => (mantra.id === selectedMantra.id ? updatedMantra : mantra));
+    setMantras(updatedMantrasList);
+
+    setSelectedCat(null);
+    setSelectedMantra(null);
+    setUpdateMantra(false);
+    setMantraName("");
+    setMantraContent("");
+  }
+
+  if (updateMantra === true) {
+   return (
+    <React.Fragment>
+    <div className="app-container">
+      <form className='upd-mantra-form' onSubmit={handleMantraUpdate}>
+        <input required
+        value={mantraName}
+        onChange={(event) => setMantraName(event.target.value)}
+        name='mantra-name'
+        type='text'
+        placeholder='Mantra name'
+        />
+        <select required
+        name='mantra-cat'
+        value={mantraCat}
+        onChange={(event) => setMantraCat(event.target.value)}>
+        {categories.map((category) => (
+          <option value={category.id}>
+          {category.catname}
+          </option>
+        ))}
+        </select>
+      
+        <textarea required
+        name='mantra-content'
+        value={mantraContent}
+        onChange={(event) => setMantraContent(event.target.value)}
+        rows={10}
+        placeholder='Mantra'
+        />
+        <button type='submit'>Save changes</button>
+      </form>
+      </div>
+      </React.Fragment>
+   );
+  }
+
+ else if (selectedMantra) {
     return (
       <React.Fragment>
       <div className="app-container">

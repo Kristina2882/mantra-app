@@ -62,6 +62,7 @@ h2 {
 }
 
 .add-mantra-form,
+.upd-mantra-form,
 .random {
   display: flex;
   flex-direction: column;
@@ -71,7 +72,11 @@ h2 {
 .add-mantra-form textarea,
 .add-mantra-form input,
 .add-mantra-form select,
-.add-mantra-form select option {
+.add-mantra-form select option,
+.upd-mantra-form textarea,
+.upd-mantra-form input,
+.upd-mantra-form select,
+.upd-mantra-form select option {
   border-radius: 5px;
   border: 1px solid #973f82;
   background-color: #e6bbe1;
@@ -80,6 +85,7 @@ h2 {
 }
 
 .add-mantra-form button,
+.upd-mantra-form button,
 .random-btn,
 .back-btn {
   border-radius: 5px;
@@ -91,6 +97,7 @@ h2 {
 }
 
 .add-mantra-form button:hover,
+.upd-mantra-form button:hover,
 .random-btn:hover,
 .back-btn:hover {
   background-color: #973f82;
