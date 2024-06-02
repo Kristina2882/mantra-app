@@ -110,7 +110,6 @@ function App() {
       <button className="back-btn" onClick={handleBackClick}>Back</button>
       </div>
       </div> 
-    
       </div>
       </React.Fragment>
     );
