@@ -54,6 +54,22 @@ app.post("/", async (req, res) => {
     }
   });
 
+  app.get('/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (!id || isNaN(id)) {
+      return res.status(400).send("ID must be a valid number");
+    }
+    try {
+    const mantras = await prisma.mantra.findMany();
+    const mantra = mantras.filter(mantra => mantra.id === id);
+    res.json(mantra);
+    }
+    catch (error) {
+      res.status(500).send("Oops, something went wrong");
+    }
+  });
+
 app.listen(5000, () => {
 console.log("Server listening at localhost: 5000");
 });
