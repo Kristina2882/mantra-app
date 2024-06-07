@@ -31,6 +31,29 @@ app.post("/", async (req, res) => {
     }
   });
 
+  app.put("/:id", async (req, res) => {
+    const { mantraName, mantraCat, mantraContent } = req.body;
+    const id = parseInt(req.params.id);
+  
+    if (!mantraContent || !mantraName || !mantraCat) {
+      return res.status(400).send("All the fields required");
+    }
+  
+    if (!id || isNaN(id)) {
+      return res.status(400).send("ID must be a valid number");
+    }
+  
+    try {
+      const updatedMantra = await prisma.mantra.update({
+        where: { id },
+        data: { mantraName, mantraCat, mantraContent },
+      });
+      res.json(updatedMantra);
+    } catch (error) {
+      res.status(500).send("Oops, something went wrong");
+    }
+  });
+
 app.listen(5000, () => {
 console.log("Server listening at localhost: 5000");
 });
