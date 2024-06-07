@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import './App.css';
 
 type Category = {
@@ -47,6 +47,20 @@ function App() {
   const [mantras, setMantras] = useState<Mantra[]>([]);
   const [selectedMantra, setSelectedMantra] = useState<Mantra | null>(null);
   const [updateMantra, setUpdateMantra] = useState(false);
+
+  useEffect(() => {
+   const fetchMantras = async () => {
+    try {
+     const response = await fetch('http://localhost:5000');
+     const mantras: Mantra[] = await response.json();
+     setMantras(mantras);
+    }
+    catch(e) {
+      console.log(e);
+    }
+   }
+   fetchMantras();
+  }, []);
 
   const handleAddMantra = (event: React.FormEvent) => {
     event.preventDefault();
