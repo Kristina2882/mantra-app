@@ -16,7 +16,7 @@ type Mantra = {
 function App() {
   const categories = [
     {
-      "id": 1,
+      "id":1,
       "catname": "About Myzdrii",
     },
     {
@@ -42,7 +42,7 @@ function App() {
   ];
   const [mantraName, setMantraName] = useState("");
   const [mantraContent, setMantraContent] = useState("");
-  const [mantraCat, setMantraCat] = useState("");
+  const [mantraCat, setMantraCat] = useState(0);
   const [selectedCat, setSelectedCat] = useState<Category | null>(null);
   const [mantras, setMantras] = useState<Mantra[]>([]);
   const [selectedMantra, setSelectedMantra] = useState<Mantra | null>(null);
@@ -62,19 +62,33 @@ function App() {
    fetchMantras();
   }, []);
 
-  const handleAddMantra = (event: React.FormEvent) => {
+  const handleAddMantra = async (event: React.FormEvent) => {
+    console.log("making request");
     event.preventDefault();
-    const newMantra = {
-      id: mantras.length + 1,
-      mantraName: mantraName,
-      mantraContent: mantraContent,
-      mantraCat: parseInt(mantraCat)
-    }
-    mantras.push(newMantra);
-    setMantras(mantras);
+   
+   try {
+   
+    const response = await fetch('http://localhost:5000', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mantraName,
+        mantraCat,
+        mantraContent,
+      }),
+    });
+    
+    const newMantra = await response.json();
+    setMantras([newMantra, ...mantras]);
     setMantraName("");
     setMantraContent("");
-  }
+   }
+   catch (e) {
+    console.log(e);
+   }
+  };
 
   const handleCatSelection = (catId:number) => {
      const selectedCategory = categories.filter(cat => cat.id === catId)[0];
@@ -106,7 +120,7 @@ function App() {
 
   const handleMantraClick = (mantra: Mantra) => {
     setMantraName(mantra.mantraName);
-    setMantraCat(mantra.mantraCat.toString());
+    setMantraCat(mantra.mantraCat);
     setMantraContent(mantra.mantraContent);
     setUpdateMantra(true);
   }
@@ -121,7 +135,7 @@ function App() {
     const updatedMantra:Mantra = {
       id: selectedMantra.id,
       mantraName: mantraName,
-      mantraCat: parseInt(mantraCat),
+      mantraCat: mantraCat,
       mantraContent: mantraContent
     }
 
@@ -150,7 +164,7 @@ function App() {
         <select required
         name='mantra-cat'
         value={mantraCat}
-        onChange={(event) => setMantraCat(event.target.value)}>
+        onChange={(event) => setMantraCat(parseInt(event.target.value))}>
         {categories.map((category) => (
           <option value={category.id}>
           {category.catname}
@@ -173,12 +187,13 @@ function App() {
   }
 
  else if (selectedMantra) {
+  const catName = categories.filter(cat => cat.id === selectedMantra.id)[0].catname;
     return (
       <React.Fragment>
       <div className="app-container">
       <div className='mantra-item' onClick={() => {handleMantraClick(selectedMantra)}}>
       <h3>{selectedMantra.mantraName}</h3>
-      <h4>{selectedMantra.mantraCat}</h4>
+      <h4><em>{catName}</em></h4>
       <h3>{selectedMantra.mantraContent}</h3>
       <div className='back-btn-div'>
       <button className="back-btn" onClick={handleBackClick}>Back</button>
@@ -195,7 +210,7 @@ function App() {
     return (
       <React.Fragment>
       <div className='cat-name'>
-      <h2>{selectedCat.catname}</h2>
+      <h2>{selectedCat.catname} - {selectedCat.id}</h2>
       </div>
       <div className="app-container">
       <div className='mantras-for-cat'>
@@ -231,7 +246,7 @@ function App() {
         <select required
         name='mantra-cat'
         value={mantraCat}
-        onChange={(event) => setMantraCat(event.target.value)}>
+        onChange={(event) => setMantraCat(parseInt(event.target.value))}>
         {categories.map((category) => (
           <option value={category.id}>
           {category.catname}

@@ -14,8 +14,9 @@ app.get('/', async (req, res) => {
     res.json(mantras);
 });
 
-app.post("/", async (req, res) => {
+app.post('/', async (req, res) => {
     const { mantraName, mantraCat, mantraContent } = req.body;
+    console.log(typeof(mantraCat));
   
     if (!mantraContent || !mantraName || !mantraCat) {
       return res.status(400).send("All the fields required");
@@ -27,7 +28,8 @@ app.post("/", async (req, res) => {
       });
       res.json(mantra);
     } catch (error) {
-      res.status(500).send("Oops, something went wrong");
+      res.status(500).send(error);
+      console.log(error);
     }
   });
 
@@ -66,7 +68,7 @@ app.post("/", async (req, res) => {
     res.json(mantra);
     }
     catch (error) {
-      res.status(500).send("Oops, something went wrong");
+      res.status(500).send(error);
     }
   });
 
