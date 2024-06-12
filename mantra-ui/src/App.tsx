@@ -16,7 +16,7 @@ type Mantra = {
 function App() {
   const categories = [
     {
-      "id":1,
+      "id": 1,
       "catname": "About Myzdrii",
     },
     {
@@ -63,7 +63,6 @@ function App() {
   }, []);
 
   const handleAddMantra = async (event: React.FormEvent) => {
-    console.log("making request");
     event.preventDefault();
    
    try {
@@ -125,28 +124,39 @@ function App() {
     setUpdateMantra(true);
   }
 
-  const handleMantraUpdate = (event:React.FormEvent) => {
+  const handleMantraUpdate = async (event:React.FormEvent) => {
     event.preventDefault();
 
     if (!selectedMantra) {
       return;
     }
 
-    const updatedMantra:Mantra = {
-      id: selectedMantra.id,
-      mantraName: mantraName,
-      mantraCat: mantraCat,
-      mantraContent: mantraContent
-    }
-
+    try {
+   
+    const response = await fetch(`http://localhost:5000/${selectedMantra.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mantraName,
+        mantraCat,
+        mantraContent,
+      }),
+    });
+    
+    const updatedMantra = await response.json();
     const updatedMantrasList = mantras.map((mantra) => (mantra.id === selectedMantra.id ? updatedMantra : mantra));
     setMantras(updatedMantrasList);
-
     setSelectedCat(null);
     setSelectedMantra(null);
     setUpdateMantra(false);
     setMantraName("");
     setMantraContent("");
+   }
+   catch (e) {
+    console.log(e);
+   }
   }
 
   if (updateMantra === true) {
@@ -187,13 +197,11 @@ function App() {
   }
 
  else if (selectedMantra) {
-  const catName = categories.filter(cat => cat.id === selectedMantra.id)[0].catname;
     return (
       <React.Fragment>
       <div className="app-container">
       <div className='mantra-item' onClick={() => {handleMantraClick(selectedMantra)}}>
       <h3>{selectedMantra.mantraName}</h3>
-      <h4><em>{catName}</em></h4>
       <h3>{selectedMantra.mantraContent}</h3>
       <div className='back-btn-div'>
       <button className="back-btn" onClick={handleBackClick}>Back</button>
