@@ -22,7 +22,7 @@ body {
   
   text-align:center;
   font-size: 24px;
-  gap: 20px;
+  gap: 30px;
 }
 
 .categories {
@@ -36,6 +36,12 @@ body {
 .mantras-for-cat,
 .back-btn-div  {
   grid-auto-rows: minmax(100px, auto);
+
+}
+
+.back-btn-div {
+  display: flex;
+  flex-direction: column;
 }
 
 .category,
