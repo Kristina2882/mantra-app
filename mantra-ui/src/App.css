@@ -7,6 +7,7 @@ body {
   grid-template-columns: 1fr;
 }
 
+
 @media (min-width: 600px) {
   .app-container {
     display: grid;
@@ -17,9 +18,7 @@ body {
 
 .categories,
 .mantras-for-cat {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  
+  display: grid;  
   text-align:center;
   font-size: 24px;
   gap: 30px;
@@ -27,16 +26,32 @@ body {
 
 .categories {
   grid-auto-rows: minmax(250px, 250px);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 .mantras-for-cat {
   grid-auto-rows: minmax(250px, auto);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 .mantras-for-cat,
 .back-btn-div  {
   grid-auto-rows: minmax(100px, auto);
+}
 
+.mantra-item {
+  width: 400px;
+}
+
+.mantra-item h3 {
+  font-size: 26px;
+  text-align: center;
+}
+
+.mantra-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .back-btn-div {
@@ -45,10 +60,16 @@ body {
 }
 
 .category,
-.mantra-item,
 .cat-mantra-item {
   display: flex;
   flex-direction: column;
+}
+
+
+.category,
+.mantra-item,
+.cat-mantra-item {
+
   border: 1px solid #973f82;
   padding: 30px;
   border-radius: 5px;
@@ -66,12 +87,14 @@ body {
 .cat-mantra-item:hover {
 background-color:#995a8a;
 }
-
+.cat-name {
+  padding: 20px;
+  font-size: 26px;
+}
 .cat-name h2 {
   color: #e6bbe1;
   padding: 10px;
-  text-align: left;
-  font-size: 24px;
+  text-align: center;
 }
 
 h2 {

@@ -199,7 +199,7 @@ function App() {
  else if (selectedMantra) {
     return (
       <React.Fragment>
-      <div className="app-container">
+      <div className="mantra-container">
       <div className='mantra-item' onClick={() => {handleMantraClick(selectedMantra)}}>
       <h3>{selectedMantra.mantraName}</h3>
       <h3>{selectedMantra.mantraContent}</h3>
@@ -218,7 +218,7 @@ function App() {
     return (
       <React.Fragment>
       <div className='cat-name'>
-      <h2>{selectedCat.catname} - {selectedCat.id}</h2>
+      <h2>{selectedCat.catname}</h2>
       </div>
       <div className="app-container">
       <div className='mantras-for-cat'>
